@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-sizing: border-box; /* Makes sure the padding doesn't affect the total width */
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+    </style>
+</head>
+<body>
+    
+    <form method="post" enctype="multipart/form-data" action="{% url 'upload' %}">
+        {% csrf_token %}
+        <p>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </p>
+        <p>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
+        </p>
+        <p>
+            <label for="pdf_file">PDF File:</label>
+            <input type="file" id="pdf_file" name="pdf_file" required accept=".pdf">
+        </p>
+        <button type="submit">Upload</button>
+    </form>
+
+</body>
+
+</html>

@@ -5,21 +5,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>home</title>
 </head>
 <body>
 
 {% block content %}
 
-<br>
-<br>
-<br>
 
-
-<h1>made with love</h1>
-<img src="https://tinyurl.com/27kft4q3" alt="">
-
-
+<ul>
+    {% for project in projects %}
+        <li>
+            <h2>{{ project.name }}</h2>
+            <p>{{ project.description }}</p>
+            <!-- Link to download the PDF file -->
+            <a href="{{ project.pdf_file.url }}">Download PDF</a>
+        </li>
+    {% empty %}
+        <li>No projects found.</li>
+    {% endfor %}
+</ul>
 
 
 {% endblock content %}
