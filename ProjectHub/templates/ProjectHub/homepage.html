@@ -6,28 +6,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>home</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
+{% load embed_video_tags %} 
+
 {% block content %}
 
+<div class="container mt-4">
+    <ul class="list-unstyled">
+        {% for project in projects %}
+            <li class="mb-3">
+                <div class="p-3 border bg-light">
+                    <h2>Project Name: {{ project.name }}</h2>
+                    <p>Description: {{ project.description }}</p>
+                    <h4>Category: {{ project.category }}</h4>
+                    <h4>university:{{project.university}}</h4>
+                     <a href="{{project.linkedinURL}}"><h4>LinkidIn</h4></a>
 
-<ul>
-    {% for project in projects %}
-        <li>
-            <h2>{{ project.name }}</h2>
-            <p>{{ project.description }}</p>
-            <!-- Link to download the PDF file -->
-            <a href="{{ project.pdf_file.url }}">Download PDF</a>
-        </li>
-    {% empty %}
-        <li>No projects found.</li>
-    {% endfor %}
-</ul>
-
+                    {% if project.video %}
+                    <h1>video:</h1>
+                        {% video project.video as my_video %}
+                        <div class="embed-responsive embed-responsive-16by9 mb-3">
+                            <iframe class="embed-responsive-item" src="{{ my_video.url }}" allowfullscreen></iframe>
+                        </div>
+                        {% endvideo %}
+                    {% endif %}
+                    <a href="{{ project.pdf_file.url }}" class="btn btn-primary">Download PDF</a>
+                </div>
+            </li>
+        {% empty %}
+            <li>No projects found.</li>
+        {% endfor %}
+    </ul>
+</div>
 
 {% endblock content %}
 
-    
 </body>
 </html>

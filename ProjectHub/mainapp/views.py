@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render
 from upload.models import Project
 def home(request):
     projects = Project.objects.all() 

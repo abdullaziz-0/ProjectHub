@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'login.apps.LoginConfig',
     'signup.apps.SignupConfig',
     'upload.apps.UploadConfig',
+    'embed_video',
 ]
 
 MIDDLEWARE = [
