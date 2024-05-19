@@ -1,48 +1,113 @@
 {% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+{% block styles %}
+<style>
+    body {
+        margin-top: 20px;
+        background: #F0F8FF;
+    }
+    .container {
+        max-width: 1200px; /* Limiting container width for better readability */
+    }
+    .project-card {
+        position: relative;
+        margin-bottom: 30px;
+        background-color: #fff;
+        border-radius: 0.25rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+    .project-img {
+        position: relative;
+    }
+    .project-img img {
+        border-radius: 0.25rem;
+        max-width: 100%;
+        height: auto;
+    }
+    .label-offer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #ed1b24;
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    .project-info {
+        padding: 15px;
+        text-align: center;
+    }
+    .project-title {
+        margin-bottom: 5px;
+        font-weight: 600;
+        font-size: 18px;
+        color: #007bff;
+    }
+    .price {
+        font-weight: 600;
+        color: #878787;
+    }
+    .line-through {
+        text-decoration: line-through;
+    }
+    .project-cart {
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.5s;
+    }
+    .project-cart a {
+        margin: 0 5px;
+        color: #292dc2;
+        background-color: #fff;
+        border-radius: 50%;
+        padding: 10px;
+    }
+    .project-cart a:hover {
+        color: #fff;
+        background-color: #292dc2;
+    }
+    .project-card:hover .project-cart {
+        visibility: visible;
+        opacity: 1;
+        top: 70%;
+    }
+</style>
+{% endblock styles %}
 
 {% load embed_video_tags %} 
 
 {% block content %}
-
 <div class="container mt-4">
-    <ul class="list-unstyled">
+    <div class="row justify-content-center">
         {% for project in projects %}
-            <li class="mb-3">
-                <div class="p-3 border bg-light">
-                    <h2>Project Name: {{ project.name }}</h2>
-                    <p>Description: {{ project.description }}</p>
-                    <h4>Category: {{ project.category }}</h4>
-                    <h4>university:{{project.university}}</h4>
-                     <a href="{{project.linkedinURL}}"><h4>LinkidIn</h4></a>
-
-                    {% if project.video %}
-                    <h1>video:</h1>
-                        {% video project.video as my_video %}
-                        <div class="embed-responsive embed-responsive-16by9 mb-3">
-                            <iframe class="embed-responsive-item" src="{{ my_video.url }}" allowfullscreen></iframe>
-                        </div>
-                        {% endvideo %}
-                    {% endif %}
-                    <a href="{{ project.pdf_file.url }}" class="btn btn-primary">Download PDF</a>
+        <div class="col-11 col-sm-6 col-lg-4 col-xl-3 mb-3">
+            <div class="project-card">
+                <div class="project-img">
+                    <div class="label-offer bg-red">{{project.category}}</div>
                 </div>
-            </li>
+                <div class="project-info">
+                    <a class="nav-link" href="{% url 'projectName' project.id %}">{{ project.project_name }}</a>
+                </div>
+            </div>
+        </div>
         {% empty %}
-            <li>No projects found.</li>
+        <div class="col-12">
+            <p>No projects found.</p>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 </div>
-
-{% endblock content %}
-
-</body>
-</html>
+{% endblock %}

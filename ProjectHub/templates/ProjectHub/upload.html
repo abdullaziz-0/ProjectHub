@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Project</title>
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -36,42 +35,36 @@
                     {% csrf_token %}
                     <h2 class="mb-4">Upload Project</h2>
                     <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
+                        <label for="project_name">Name:</label>
+                        {{ form.project_name }}
                     </div>
                     <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea id="description" name="description" class="form-control" required></textarea>
+                        <label for="description">Project abstract:</label>
+                        {{ form.description }}
+                    </div>
+                    <div class="form-group">
+                        <label for="group_members">Group members (separate by comma):</label>
+                        {{ form.group_members }}
                     </div>
                     <div class="form-group">
                         <label for="category">Choose the project category:</label>
-                        <select id="category" name="category" class="form-control">
-                          <option value="AI">AI</option>
-                          <option value="Network">Network</option>
-                          <option value="Security">Security</option>
-                          <option value="Web Development">Web Development</option>
-                          <option value="robotics">robotics</option>
-                        </select>
+                        {{ form.category }}
                     </div>
                     <div class="form-group">
-                        <label for="university">Choose the university:</label>
-                        <select id="university" name="university" class="form-control">
-                          <option value="QU">QU</option>
-                          <option value="KSU">KSU</option>
-                          <option value="IMAMU">IMAMU</option>
-                        </select>
+                        <label for="branch">Branch:</label>
+                        {{ form.branch }}
                     </div>
                     <div class="form-group">
                         <label for="video">Video URL (optional):</label>
-                        <input type="text" id="video" name="video" class="form-control">
+                        {{ form.video }}
                     </div>
                     <div class="form-group">
                         <label for="pdf_file">PDF File:</label>
-                        <input type="file" id="pdf_file" name="pdf_file" class="form-control-file" accept=".pdf">
+                        {{ form.pdf_file }}
                     </div>
                     <div class="form-group">
-                        <label for="linkedinURL">LinkedIn URL:</label>
-                        <textarea id="linkedinURL" name="linkedinURL" class="form-control"></textarea>
+                        <label for="githubURL">GitHub URL:</label>
+                        {{ form.githubURL }}
                     </div>
                     <button type="submit" class="btn btn-primary">Upload</button>
                 </form>

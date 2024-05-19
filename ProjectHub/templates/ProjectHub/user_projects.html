@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load embed_video_tags %} 
+
+{% block content %}
+
+<div class="container mt-4">
+    <ul class="list-unstyled">
+        {% for project in user_projects  %}
+            <li class="mb-3">
+                <div class="p-3 border bg-light">
+                    <h2>Project Name: {{ project.project_name }}</h2>
+                    <p>Description: {{ project.description }}</p>
+                    <h4>Category: {{ project.category }}</h4>
+                    <h4>university:{{project.university}}</h4>
+                     <a href="{{project.githubURL}}"><h4>Github URL</h4></a>
+
+                    {% if project.video %}
+                    <h1>video:</h1>
+                        {% video project.video as my_video %}
+                        <div class="embed-responsive embed-responsive-16by9 mb-3">
+                            <iframe class="embed-responsive-item" src="{{ my_video.url }}" allowfullscreen></iframe>
+                        </div>
+                        {% endvideo %}
+                    {% endif %}
+                    <a href="{{ project.pdf_file.url }}" class="btn btn-primary">Download PDF</a>
+                    <a href="{% url 'project_update' project.id %}" class="btn btn-primary">Edit Project</a> 
+                    <a href="{% url 'delete_project' project.id %}">Delete Project</a>
+
+                </div>
+            </li>
+        {% empty %}
+            <li>No projects found.</li>
+        {% endfor %}
+        
+    </ul>
+</div>
+
+{% endblock content %}

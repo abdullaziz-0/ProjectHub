@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load embed_video_tags %} 
+
+{% block content %}
+<div class="container mt-4">
+    <ul class="list-unstyled">
+        <li class="mb-3">
+            <div class="p-3 border bg-light project-card">
+                <h2 class="project-title">Project Name: {{ project.project_name }}</h2>
+                <p class="project-description">Description: {{ project.description }}</p>
+                <h4 class="project-category">Category: {{ project.category }}</h4>
+                <h4>Branch: {{ project.branch }}</h4>
+                <a href="{{ project.githubURL }}"><h4>GitHub</h4></a>  
+                <h4 class="project-members">Members: {{ project.group_members }}</h4> 
+
+                {% if project.video %}
+                <h1>Video:</h1>
+                {% video project.video as my_video %}
+                <div class="embed-responsive embed-responsive-16by9 mb-3">
+                    <iframe class="embed-responsive-item" src="{{ my_video.url }}" allowfullscreen></iframe>
+                </div>
+                {% endvideo %}
+                {% endif %}
+                <a href="{{ project.pdf_file.url }}" class="btn btn-download">Download PDF</a>
+               
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock %}
